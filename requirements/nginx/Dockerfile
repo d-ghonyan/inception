@@ -2,8 +2,9 @@ FROM debian:buster
 
 WORKDIR /nginx
 
-RUN apt -y update && apt -y install nginx sudo
+RUN apt-get -y update && apt-get -y install nginx sudo
+RUN sudo service nginx start
 
 COPY . .
 
-CMD ["sudo", "service", "nginx", "status"]
+CMD ["sudo", "nginx", "-t"]
