@@ -7,5 +7,7 @@ RUN service mysql start
 
 COPY . .
 
-CMD tail -f
+CMD service mysql status
+
+# CMD tail -f
 # CMD ["mysql", "-h", "localhost", "-P", "6306", "--protocol=tcp"]
