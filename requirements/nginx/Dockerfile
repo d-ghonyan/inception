@@ -3,8 +3,10 @@ FROM debian:buster
 WORKDIR /nginx
 
 RUN apt-get -y update && apt-get -y install nginx sudo
-RUN sudo service nginx start
 
 COPY . .
 
-CMD ["sudo", "nginx", "-t"]
+RUN cp nginx_conf.sample /etc/nginx/sites-available/wordpress.conf
+RUN sudo service nginx start
+
+CMD sleep infinity
