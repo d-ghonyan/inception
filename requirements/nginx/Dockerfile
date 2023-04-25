@@ -9,4 +9,4 @@ COPY . .
 RUN cp nginx_conf.sample /etc/nginx/sites-available/wordpress.conf
 RUN sudo service nginx start
 
-CMD sleep infinity
+CMD nginx -g "daemon off;"
