@@ -51,3 +51,4 @@ services:
     image: wordpress_deb
     volumes:
       - ./src/index.php:/var/www/html/index.php
+      - ./php.ini:/etc/php/7.3/fpm/php.ini

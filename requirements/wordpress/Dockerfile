@@ -10,4 +10,5 @@ RUN cd /var/www/html && wget https://wordpress.org/latest.zip && unzip latest.zi
 
 COPY . .
 
-CMD /usr/sbin/php-fpm7.3 --nodaemonize
+CMD /bin/bash
+#CMD /usr/sbin/php-fpm7.3 --nodaemonize
