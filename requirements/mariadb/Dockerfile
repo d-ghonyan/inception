@@ -2,14 +2,12 @@ FROM debian:buster
 
 WORKDIR /mariadb
 
-EXPOSE 3306/tcp
-
 RUN apt-get update && apt-get install mariadb-server -y
-RUN service mysql start
 
 COPY . .
 
-# CMD service mysql status
+RUN service mysql start
 
-# CMD tail -f
-# CMD ["mysql", "-h", "localhost", "-P", "6306", "--protocol=tcp"]
+#CMD /bin/bash
+CMD mysql start #mysql_secure_installation
+#CMD ["mysql", "-h", "127.0.0.1", "-P", "3306", "--protocol=tcp"]
