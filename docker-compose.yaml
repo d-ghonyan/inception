@@ -35,20 +35,34 @@
 #        - mysql
 #    restart: always
 
+#services:
+#  web:
+#    image: nginx_deb
+#    ports:
+#      - '8080:80'
+#    volumes:
+#      - ./src:/var/www/html/
+#      - ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf
+#    links:
+#      - php-fpm
+#  php-fpm:
+#    ports:
+#      - "9000:9000"
+#    image: wordpress_deb
+#    volumes:
+#      - ./src/index.php:/var/www/html/index.php
+#      - ./fpm_conf:/etc/php/7.3/fpm/
 services:
   web:
-    image: nginx_deb
+    image: nginx:latest
     ports:
       - '8080:80'
     volumes:
-      - ./src/index.php:/var/www/html/index.php
-      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
+      - ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf
     links:
       - php-fpm
   php-fpm:
-    ports:
-      - "9000:9000"
-    image: wordpress_deb
+    image: php:8-fpm
     volumes:
-      - ./src/index.php:/var/www/html/index.php
-      - ./php.ini:/etc/php/7.3/fpm/php.ini
+      - ./src:/var/www/html
