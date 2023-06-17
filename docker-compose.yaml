@@ -21,12 +21,12 @@
 
 services:
   nginx:
-    image: nginx_deb
+    build: requirements/nginx/
     ports:
-      - '8080:80'
+      - '443:443'
     volumes:
-      - wordpress-files:/var/www/html
-      - ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf
+      - wordpress:/var/www/html
+      #- ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - docker-network
     restart: always
@@ -45,10 +45,10 @@ services:
       MYSQL_PASSWORD: wordpress
     restart: always
   php-fpm:
-    image: word
+    build: requirements/wordpress/
     volumes:
       - ./fpm_conf/:/etc/php/7.3/fpm/
-      - wordpress-files:/var/www/html
+      - wordpress:/var/www/html
     environment:
       WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: wordpress
@@ -62,7 +62,7 @@ networks:
   docker-network:
 
 volumes:
-  wordpress-files:
+  wordpress:
     external: true
   mysql:
     external: true
