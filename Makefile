@@ -17,10 +17,9 @@ clean:
 	docker compose -f $(COMPOSE_FILE) down -v
 	docker volume rm mysql
 	docker volume rm wordpress
-	docker network rm docker-network
 
 fclean: clean
-	docker compose -f $(COMPOSE_FILE) down -v
 	docker image rm `docker image ls -qa`
+	docker network rm docker-network
 
 re: fclean all
