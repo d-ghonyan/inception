@@ -22,44 +22,41 @@
 
 services:
   nginx:
-    image: nginx_deb
+    image: nginx:latest
     ports:
-      - '8080:80'
+        - '80:80'
     volumes:
       - wordpress-files:/var/www/html
       - ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf
     links:
-      - php-fpm
+        - php-fpm
     restart: always
   mysql:
-    image: mariadb_deb
+    image: mariadb
     ports:
-      - '3306:3306'
+        - '3306:3306'
     volumes:
-      - mysql:/var/lib/mysql
+        - mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+        - MYSQL_ROOT_PASSWORD=helloworld
     restart: always
   php-fpm:
     image: word
+    ports:
+        - '9000:9000'
     volumes:
-      - ./fpm_conf/:/etc/php/7.3/fpm/
-      - wordpress-files:/var/www/html
+        - ./fpm_conf/:/etc/php/7.3/fpm/
+        - wordpress-files:/var/www/html
     environment:
-      WORDPRESS_DB_HOST: mysql:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
+        - WORDPRESS_DB_NAME=wpdb
+        - WORDPRESS_TABLE_PREFIX=wp_
+        - WORDPRESS_DB_HOST=mysql
+        - WORDPRESS_DB_PASSWORD=helloworld
     links:
-      - mysql
+        - mysql
     restart: always
-
-
 volumes:
-  wordpress-files:
-    external: true
-  mysql:
-    external: true
+    wordpress-files:
+        external: true
+    mysql:
+        external: true
