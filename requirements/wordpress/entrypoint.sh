@@ -7,16 +7,9 @@ then
 		--url=https://wordpress.org/latest.zip core download
 fi
 
-if [ ! -f /var/www/html/wp-config.php ]
-then
-	echo "Installing wordpress, creating users";
-	wp --allow-root --path=/var/www/html config create \
-		--dbuser="$WORDPRESS_DB_USER" --dbname="$WORDPRESS_DB_NAME" \
-		--dbpass="$WORDPRESS_DB_PASSWORD" --dbhost="$WORDPRESS_DB_HOST"
-	wp user create "$EDITOR_USERNAME" "$EDITOR_PASSWORD" --role=editor 
-fi
-
 sleep 15;
+
+mv ./wp-config.php /var/www/html/wp-config.php
 
 while ! wp --allow-root --path=/var/www/html/ \
 		--url="$SITE_URL" --title="$SITE_TITLE" \
@@ -26,5 +19,7 @@ do
 	echo "trying again in 5 seconds"
 	sleep 5;
 done
+
+wp --allow-root --path=/var/www/html user create "$EDITOR_USERNAME" "idontcare@yourmomshouse.org" --user_pass="$EDITOR_PASSWORD" --role=editor 
 
 /usr/sbin/php-fpm7.3 --nodaemonize

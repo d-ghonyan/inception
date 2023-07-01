@@ -1,6 +1,8 @@
 services:
   nginx:
     build: requirements/nginx/
+    depends_on:
+     - php-fpm
     ports:
       - '443:443'
     volumes:
