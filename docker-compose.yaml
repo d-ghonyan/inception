@@ -12,12 +12,10 @@ services:
       - docker-network
     restart: always
   mysql:
-    # build: requirements/mysql/
+    build: requirements/mariadb/
     networks:
       - docker-network
-    image: mariadb:latest
-    ports:
-      - '3306:3306'
+    #image: mariadb:latest
     volumes:
       - mysql:/var/lib/mysql
     env_file:
@@ -25,7 +23,7 @@ services:
     restart: always
   php-fpm:
     depends_on:
-    - mysql
+     - mysql
     build: requirements/wordpress/
     volumes:
       - wordpress:/var/www/html
@@ -44,3 +42,4 @@ volumes:
     external: true
   mysql:
     external: true
+#docker exec -it `docker ps | grep php | awk '{print $1}'` bash
