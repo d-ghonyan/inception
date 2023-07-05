@@ -18,4 +18,4 @@ sleep 2;
 
 killall mysqld
 
-mysqld
+mysqld --bind-address=:: --skip-networking=0 --port=3306
