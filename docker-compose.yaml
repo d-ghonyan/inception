@@ -38,7 +38,16 @@ networks:
 
 volumes:
   wordpress:
-    external: true
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /home/dghonyan/data/wordpress
   mysql:
-    external: true
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /home/dghonyan/data/mysql
+
 #docker exec -it `docker ps | grep php | awk '{print $1}'` bash
